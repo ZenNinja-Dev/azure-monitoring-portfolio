@@ -1,0 +1,73 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "customerName": {
+      "type": "string",
+      "metadata": {
+        "description": "Customer name (CustomerA)"
+      }
+    },
+    "actionGroupId": {
+      "type": "string",
+      "metadata": {
+        "description": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/MyOpsRG/providers/microsoft.insights/actiongroups/MyActionGroup"
+      }
+    },
+    "appInsightsResourceId": {
+      "type": "string",
+      "metadata": {
+        "description": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/MyAppRG/providers/microsoft.insights/components/MyAppRG-ain"
+      }
+    },
+    "workspaceResourceId": {
+      "type": "string",
+      "metadata": {
+        "description": "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/myapprg/providers/microsoft.operationalinsights/workspaces/myapprg-law"
+      }
+    }
+  },
+  "variables": {
+    "alertRuleName": "[concat('Tier1-Transactions-Zero-Alert-', parameters('customerName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Insights/scheduledQueryRules",
+      "apiVersion": "2021-08-01",
+      "name": "[variables('alertRuleName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "displayName": "[variables('alertRuleName')]",
+        "description": "[concat('Monitors ', parameters('customerName'), ' customer - alerts when transaction count <= 0 in last 5 minutes')]",
+        "severity": 2,
+        "enabled": true,
+        "evaluationFrequency": "PT5M",
+        "scopes": [
+          "[parameters('workspaceResourceId')]"
+        ],
+        "windowSize": "PT5M",
+        "criteria": {
+          "allOf": [
+            {
+              "query": "[concat('AppMetrics | where AppRoleName == \"App Backend\" and Name == \"Transaction Count\" and tostring(Properties.Customer) in (\"', parameters('customerName'), '\") and Properties.IsRealMoney == true | summarize TransactionsCount = sum(ItemCount)')]",
+              "timeAggregation": "Total",
+              "metricMeasureColumn": "TransactionsCount",
+              "dimensions": [],
+              "operator": "LessThanOrEqual",
+              "threshold": 0,
+              "failingPeriods": {
+                "numberOfEvaluationPeriods": 1,
+                "minFailingPeriodsToAlert": 1
+              }
+            }
+          ]
+        },
+        "actions": {
+          "actionGroups": [
+            "[parameters('actionGroupId')]"
+          ]
+        }
+      }
+    }
+  ]
+}
