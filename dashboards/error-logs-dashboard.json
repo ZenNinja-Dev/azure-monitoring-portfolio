@@ -481,7 +481,7 @@
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/00000000-0000-0000-0000-000000000006/resourceGroups/NEOCW01/providers/microsoft.insights/components/NEOCW01-ain"
+                      "/subscriptions/00000000-0000-0000-0000-000000000006/resourceGroups/ClientG/providers/microsoft.insights/components/ClientG-ain"
                     ]
                   },
                   "isOptional": true
@@ -530,7 +530,7 @@
                 },
                 {
                   "name": "PartSubTitle",
-                  "value": "NEOCW01-ain",
+                  "value": "ClientG-ain",
                   "isOptional": true
                 },
                 {
@@ -568,7 +568,7 @@
               "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
               "settings": {
                 "content": {
-                  "PartTitle": "NEOCW01-ain",
+                  "PartTitle": "ClientG-ain",
                   "PartSubTitle": "LOGS"
                 }
               }
