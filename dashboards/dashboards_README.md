@@ -10,6 +10,7 @@ Azure Portal shared dashboard templates for operational monitoring and incident 
 |------|-------------|-------------|
 | `error-logs-dashboard.json` | Multi-client error log monitoring dashboard | Daily monitoring |
 | `metrics-investigation-dashboard.json` | Multi-client transaction metrics dashboard | Outage & drop investigation |
+| `azure-health-vs-metrics-dashboard.json` | Azure Service Health vs. internal metrics | Cloud provider vs. internal incident triage |
 
 ---
 
@@ -64,4 +65,32 @@ Operators use this dashboard to identify the exact time window of a drop, compar
 
 ---
 
-*Domain: Azure Monitor | Application Insights | Shared Dashboards | Multi-client Monitoring | Incident Investigation*
+## azure-health-vs-metrics-dashboard.json
+
+### Overview
+A correlation dashboard that displays Azure Service Health status alongside internal transaction metrics on a single screen.
+
+Created to solve a real operational problem – when an incident occurs, the first question is always: *is this our system or is Azure having issues?* This dashboard answers that question immediately without switching between portals.
+
+### Features
+- Azure Service Health tile – live status of Azure services and regions
+- Internal transaction metrics per client – side-by-side with Azure health status
+- Quick links to Azure Service Health portal and incident history
+- Covers multiple client environments (ClientA through ClientE)
+
+### Typical Investigation Workflow
+1. Alert fires – open this dashboard first
+2. Check Azure Service Health tile for any active incidents or degradations
+3. Compare with internal metrics – if Azure is healthy but metrics dropped, the issue is internal
+4. If Azure shows an incident in the relevant region or service, escalate as external dependency issue
+
+### How to Deploy
+1. Go to Azure Portal → Dashboard → **Upload**
+2. Select `azure-health-vs-metrics-dashboard.json`
+3. After upload, update metric tiles to point to your own Application Insights resources
+4. Pin Azure Service Health tile to your subscription
+5. Save and share with your team
+
+---
+
+*Domain: Azure Monitor | Azure Service Health | Application Insights | Shared Dashboards | Incident Triage*
