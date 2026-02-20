@@ -1,0 +1,535 @@
+{
+  "properties": {
+    "lenses": [
+      {
+        "order": 0,
+        "parts": [
+          {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "colSpan": 7,
+              "rowSpan": 12
+            },
+            "metadata": {
+              "inputs": [],
+              "type": "Extension/HubsExtension/PartType/MarkdownPart",
+              "settings": {
+                "content": {
+                  "content": "## Azure Service Health\n\n**Quick Links:**\n- [Service Health Dashboard](https://portal.azure.com/#view/Microsoft_Azure_Health/AzureHealthBrowseBlade/~/serviceIssues)\n- [Health History](https://portal.azure.com/#view/Microsoft_Azure_Health/AzureHealthBrowseBlade/~/healthHistory)\n- [Your Alerts](https://portal.azure.com/#view/Microsoft_Azure_Health/AzureHealthBrowseBlade/~/healthAlerts)\n\n**Current Status:** [Check Now →](https://status.azure.com/)\n\n**Monitored Services:**\n- Application Insights\n- Azure Monitor  \n- Log Analytics\n\n**Region:** West Europe\n\n",
+                  "title": "Azure Service Health",
+                  "subtitle": "My subtitle",
+                  "markdownSource": 1,
+                  "markdownUri": "https://portal.azure.com/#view/Microsoft_Azure_Health/AzureHealthBrowseBlade/~/serviceIssues"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 7,
+              "y": 0,
+              "colSpan": 5,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "ComponentId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeContext",
+                  "value": null,
+                  "isOptional": true
+                },
+                {
+                  "name": "ResourceIds",
+                  "value": [
+                    "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam"
+                  ],
+                  "isOptional": true
+                },
+                {
+                  "name": "ConfigurationId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourcegroups/myopsrg/providers/microsoft.insights/workbooks/00000000-0000-0000-0000-0000000000016",
+                  "isOptional": true
+                },
+                {
+                  "name": "Type",
+                  "value": "workbook",
+                  "isOptional": true
+                },
+                {
+                  "name": "GalleryResourceType",
+                  "value": "microsoft.operationalinsights/workspaces",
+                  "isOptional": true
+                },
+                {
+                  "name": "PinName",
+                  "value": "OpsTeam -LEFT (monitor)",
+                  "isOptional": true
+                },
+                {
+                  "name": "StepSettings",
+                  "value": "{\"version\":\"KqlItem/1.0\",\"query\":\"union \\n    AppMetrics // just for better IntelliSense\\n    ,workspace(\\\"00000000-0000-0000-0000-0000000000017\\\").AppMetrics //ClientD\\n| where AppRoleName == \\\"App Backend\\\" and (((Name == \\\"Transaction Count\\\") and (Properties.IsRealMoney == true)) or (Name == \\\"Game Errors\\\")) and (Properties.Platform != \\\"Test (In Memory)\\\")\\n| summarize Count = sum(ItemCount) by Name, Time = bin(TimeGenerated, 1m)\\n| summarize Final = avg(Count) by Name, bin(Time, 5m) \\n| render timechart\",\"size\":0,\"aggregation\":5,\"title\":\"ClientD\",\"color\":\"redBright\",\"timeContext\":{\"durationMs\":86400000},\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\",\"visualization\":\"timechart\",\"chartSettings\":{\"seriesLabelSettings\":[{\"seriesName\":\"Transaction Count\",\"color\":\"green\"},{\"seriesName\":\"Game Errors\",\"color\":\"redBright\"}]}}",
+                  "isOptional": true
+                },
+                {
+                  "name": "ParameterValues",
+                  "value": {},
+                  "isOptional": true
+                },
+                {
+                  "name": "Location",
+                  "value": "westeurope",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/AppInsightsExtension/PartType/PinnedNotebookQueryPart"
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 0,
+              "colSpan": 5,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "ComponentId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeContext",
+                  "value": null,
+                  "isOptional": true
+                },
+                {
+                  "name": "ResourceIds",
+                  "value": [
+                    "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam"
+                  ],
+                  "isOptional": true
+                },
+                {
+                  "name": "ConfigurationId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourcegroups/myopsrg/providers/microsoft.insights/workbooks/00000000-0000-0000-0000-0000000000016",
+                  "isOptional": true
+                },
+                {
+                  "name": "Type",
+                  "value": "workbook",
+                  "isOptional": true
+                },
+                {
+                  "name": "GalleryResourceType",
+                  "value": "microsoft.operationalinsights/workspaces",
+                  "isOptional": true
+                },
+                {
+                  "name": "PinName",
+                  "value": "OpsTeam -LEFT (monitor)",
+                  "isOptional": true
+                },
+                {
+                  "name": "StepSettings",
+                  "value": "{\"version\":\"KqlItem/1.0\",\"query\":\"union \\n    AppMetrics // just for better IntelliSense\\n    ,workspace(\\\"00000000-0000-0000-0000-0000000000012\\\").AppMetrics //ClientE\\n| where AppRoleName == \\\"App Backend\\\" and (((Name == \\\"Transaction Count\\\") and (Properties.IsRealMoney == true)) or (Name == \\\"Game Errors\\\")) and (Properties.Platform != \\\"Test (In Memory)\\\")\\n| summarize Count = sum(ItemCount) by Name, Time = bin(TimeGenerated, 1m)\\n| summarize Final = avg(Count) by Name, bin(Time, 5m) \\n| render timechart\",\"size\":0,\"aggregation\":5,\"title\":\"ClientE\",\"color\":\"redBright\",\"timeContext\":{\"durationMs\":86400000},\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\",\"visualization\":\"timechart\",\"chartSettings\":{\"seriesLabelSettings\":[{\"seriesName\":\"Transaction Count\",\"color\":\"green\"},{\"seriesName\":\"Game Errors\",\"color\":\"redBright\"}]}}",
+                  "isOptional": true
+                },
+                {
+                  "name": "ParameterValues",
+                  "value": {},
+                  "isOptional": true
+                },
+                {
+                  "name": "Location",
+                  "value": "westeurope",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/AppInsightsExtension/PartType/PinnedNotebookQueryPart"
+            }
+          },
+          {
+            "position": {
+              "x": 17,
+              "y": 0,
+              "colSpan": 5,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "ComponentId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeContext",
+                  "value": null,
+                  "isOptional": true
+                },
+                {
+                  "name": "ResourceIds",
+                  "value": [
+                    "/subscriptions/00000000-0000-0000-0000-000000000002/resourcegroups/OpsTeam",
+                    "/subscriptions/00000000-0000-0000-0000-000000000002/resourcegroups/myopsrg/providers/microsoft.operationalinsights/workspaces/myopsrg-law"
+                  ],
+                  "isOptional": true
+                },
+                {
+                  "name": "ConfigurationId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourcegroups/myopsrg/providers/microsoft.insights/workbooks/00000000-0000-0000-0000-000000000006",
+                  "isOptional": true
+                },
+                {
+                  "name": "Type",
+                  "value": "workbook",
+                  "isOptional": true
+                },
+                {
+                  "name": "GalleryResourceType",
+                  "value": "microsoft.operationalinsights/workspaces",
+                  "isOptional": true
+                },
+                {
+                  "name": "PinName",
+                  "value": "Dashboard 1",
+                  "isOptional": true
+                },
+                {
+                  "name": "StepSettings",
+                  "value": "{\"version\":\"KqlItem/1.0\",\"query\":\"union \\n    AppMetrics // just for better IntelliSense\\n    ,workspace(\\\"00000000-0000-0000-0000-0000000000014\\\").AppMetrics //ClientD\\n| where AppRoleName == \\\"App Backend\\\" and (((Name == \\\"Transaction Count\\\") and (Properties.IsRealMoney == true)) or (Name == \\\"Game Errors\\\")) and (Properties.Platform != \\\"Test (In Memory)\\\")\\n| summarize Count = sum(ItemCount) by Name, Time = bin(TimeGenerated, 1m)\\n| summarize Final = avg(Count) by Name, bin(Time, 5m) \\n| render timechart\",\"size\":0,\"aggregation\":5,\"title\":\"ClientF\",\"color\":\"redBright\",\"timeContext\":{\"durationMs\":86400000},\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\",\"visualization\":\"timechart\",\"chartSettings\":{\"seriesLabelSettings\":[{\"seriesName\":\"Transaction Count\",\"color\":\"green\"},{\"seriesName\":\"Game Errors\",\"color\":\"redBright\"}]}}",
+                  "isOptional": true
+                },
+                {
+                  "name": "ParameterValues",
+                  "value": {},
+                  "isOptional": true
+                },
+                {
+                  "name": "Location",
+                  "value": "westeurope",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/AppInsightsExtension/PartType/PinnedNotebookQueryPart"
+            }
+          },
+          {
+            "position": {
+              "x": 7,
+              "y": 4,
+              "colSpan": 5,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "ComponentId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeContext",
+                  "value": null,
+                  "isOptional": true
+                },
+                {
+                  "name": "ResourceIds",
+                  "value": [
+                    "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam"
+                  ],
+                  "isOptional": true
+                },
+                {
+                  "name": "ConfigurationId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourcegroups/myopsrg/providers/microsoft.insights/workbooks/00000000-0000-0000-0000-0000000000016",
+                  "isOptional": true
+                },
+                {
+                  "name": "Type",
+                  "value": "workbook",
+                  "isOptional": true
+                },
+                {
+                  "name": "GalleryResourceType",
+                  "value": "microsoft.operationalinsights/workspaces",
+                  "isOptional": true
+                },
+                {
+                  "name": "PinName",
+                  "value": "OpsTeam -LEFT (monitor)",
+                  "isOptional": true
+                },
+                {
+                  "name": "StepSettings",
+                  "value": "{\"version\":\"KqlItem/1.0\",\"query\":\"union \\n    AppMetrics // just for better IntelliSense\\n    ,workspace(\\\"00000000-0000-0000-0000-000000000008\\\").AppMetrics //ClientG\\n| where AppRoleName == \\\"App Backend\\\" and (((Name == \\\"Transaction Count\\\") and (Properties.IsRealMoney == true)) or (Name == \\\"Game Errors\\\")) and (Properties.Platform != \\\"Test (In Memory)\\\")\\n| summarize Count = sum(ItemCount) by Name, Time = bin(TimeGenerated, 1m)\\n| summarize Final = avg(Count) by Name, bin(Time, 5m) \\n| render timechart\",\"size\":0,\"aggregation\":5,\"title\":\"ClientG\",\"color\":\"redBright\",\"timeContext\":{\"durationMs\":86400000},\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\",\"visualization\":\"timechart\",\"chartSettings\":{\"seriesLabelSettings\":[{\"seriesName\":\"Transaction Count\",\"color\":\"green\"},{\"seriesName\":\"Game Errors\",\"color\":\"redBright\"}]}}",
+                  "isOptional": true
+                },
+                {
+                  "name": "ParameterValues",
+                  "value": {},
+                  "isOptional": true
+                },
+                {
+                  "name": "Location",
+                  "value": "westeurope",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/AppInsightsExtension/PartType/PinnedNotebookQueryPart"
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 4,
+              "colSpan": 5,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "ComponentId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeContext",
+                  "value": null,
+                  "isOptional": true
+                },
+                {
+                  "name": "ResourceIds",
+                  "value": [
+                    "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam"
+                  ],
+                  "isOptional": true
+                },
+                {
+                  "name": "ConfigurationId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourcegroups/myopsrg/providers/microsoft.insights/workbooks/00000000-0000-0000-0000-0000000000016",
+                  "isOptional": true
+                },
+                {
+                  "name": "Type",
+                  "value": "workbook",
+                  "isOptional": true
+                },
+                {
+                  "name": "GalleryResourceType",
+                  "value": "microsoft.operationalinsights/workspaces",
+                  "isOptional": true
+                },
+                {
+                  "name": "PinName",
+                  "value": "OpsTeam -LEFT (monitor)",
+                  "isOptional": true
+                },
+                {
+                  "name": "StepSettings",
+                  "value": "{\"version\":\"KqlItem/1.0\",\"query\":\"union \\n    AppMetrics // just for better IntelliSense\\n    ,workspace(\\\"00000000-0000-0000-0000-000000000009\\\").AppMetrics //ClientA\\n| where AppRoleName == \\\"App Backend\\\" and (((Name == \\\"Transaction Count\\\") and (Properties.IsRealMoney == true)) or (Name == \\\"Game Errors\\\")) and (Properties.Platform != \\\"Test (In Memory)\\\")\\n| summarize Count = sum(ItemCount) by Name, Time = bin(TimeGenerated, 1m)\\n| summarize Final = avg(Count) by Name, bin(Time, 5m) \\n| render timechart\",\"size\":0,\"aggregation\":5,\"title\":\"ClientA\",\"color\":\"redBright\",\"timeContext\":{\"durationMs\":86400000},\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\",\"visualization\":\"timechart\",\"chartSettings\":{\"seriesLabelSettings\":[{\"seriesName\":\"Transaction Count\",\"color\":\"green\"},{\"seriesName\":\"Game Errors\",\"color\":\"redBright\"}]}}",
+                  "isOptional": true
+                },
+                {
+                  "name": "ParameterValues",
+                  "value": {},
+                  "isOptional": true
+                },
+                {
+                  "name": "Location",
+                  "value": "westeurope",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/AppInsightsExtension/PartType/PinnedNotebookQueryPart"
+            }
+          },
+          {
+            "position": {
+              "x": 17,
+              "y": 4,
+              "colSpan": 5,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "ComponentId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeContext",
+                  "value": null,
+                  "isOptional": true
+                },
+                {
+                  "name": "ResourceIds",
+                  "value": [
+                    "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam"
+                  ],
+                  "isOptional": true
+                },
+                {
+                  "name": "ConfigurationId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourcegroups/myopsrg/providers/microsoft.insights/workbooks/00000000-0000-0000-0000-0000000000016",
+                  "isOptional": true
+                },
+                {
+                  "name": "Type",
+                  "value": "workbook",
+                  "isOptional": true
+                },
+                {
+                  "name": "GalleryResourceType",
+                  "value": "microsoft.operationalinsights/workspaces",
+                  "isOptional": true
+                },
+                {
+                  "name": "PinName",
+                  "value": "OpsTeam -LEFT (monitor)",
+                  "isOptional": true
+                },
+                {
+                  "name": "StepSettings",
+                  "value": "{\"version\":\"KqlItem/1.0\",\"query\":\"union \\n    AppMetrics // just for better IntelliSense\\n    ,workspace(\\\"00000000-0000-0000-0000-000000000007\\\").AppMetrics //ClientB\\n| where AppRoleName == \\\"App Backend\\\" and (((Name == \\\"Transaction Count\\\") and (Properties.IsRealMoney == true)) or (Name == \\\"Game Errors\\\")) and (Properties.Platform != \\\"Test (In Memory)\\\")\\n| summarize Count = sum(ItemCount) by Name, Time = bin(TimeGenerated, 1m)\\n| summarize Final = avg(Count) by Name, bin(Time, 5m) \\n| render timechart\",\"size\":0,\"aggregation\":5,\"title\":\"ClientB\",\"color\":\"redBright\",\"timeContext\":{\"durationMs\":86400000},\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\",\"visualization\":\"timechart\",\"chartSettings\":{\"seriesLabelSettings\":[{\"seriesName\":\"Transaction Count\",\"color\":\"green\"},{\"seriesName\":\"Game Errors\",\"color\":\"redBright\"}]}}",
+                  "isOptional": true
+                },
+                {
+                  "name": "ParameterValues",
+                  "value": {},
+                  "isOptional": true
+                },
+                {
+                  "name": "Location",
+                  "value": "westeurope",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/AppInsightsExtension/PartType/PinnedNotebookQueryPart"
+            }
+          },
+          {
+            "position": {
+              "x": 7,
+              "y": 8,
+              "colSpan": 5,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "ComponentId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeContext",
+                  "value": null,
+                  "isOptional": true
+                },
+                {
+                  "name": "ResourceIds",
+                  "value": [
+                    "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/OpsTeam/providers/Microsoft.OperationalInsights/workspaces/OpsTeam"
+                  ],
+                  "isOptional": true
+                },
+                {
+                  "name": "ConfigurationId",
+                  "value": "/subscriptions/00000000-0000-0000-0000-000000000002/resourcegroups/myopsrg/providers/microsoft.insights/workbooks/00000000-0000-0000-0000-0000000000016",
+                  "isOptional": true
+                },
+                {
+                  "name": "Type",
+                  "value": "workbook",
+                  "isOptional": true
+                },
+                {
+                  "name": "GalleryResourceType",
+                  "value": "microsoft.operationalinsights/workspaces",
+                  "isOptional": true
+                },
+                {
+                  "name": "PinName",
+                  "value": "OpsTeam -LEFT (monitor)",
+                  "isOptional": true
+                },
+                {
+                  "name": "StepSettings",
+                  "value": "{\"version\":\"KqlItem/1.0\",\"query\":\"union \\n    AppMetrics // just for better IntelliSense\\n    ,workspace(\\\"00000000-0000-0000-0000-000000000001\\\").AppMetrics //ClientC\\n| where AppRoleName == \\\"App Backend\\\" and (((Name == \\\"Transaction Count\\\") and (Properties.IsRealMoney == true)) or (Name == \\\"Game Errors\\\")) and (Properties.Platform != \\\"Test (In Memory)\\\")\\n| summarize Count = sum(ItemCount) by Name, Time = bin(TimeGenerated, 1m)\\n| summarize Final = avg(Count) by Name, bin(Time, 5m) \\n| render timechart\",\"size\":0,\"aggregation\":5,\"title\":\"ClientC\",\"color\":\"redBright\",\"timeContext\":{\"durationMs\":86400000},\"queryType\":0,\"resourceType\":\"microsoft.operationalinsights/workspaces\",\"visualization\":\"timechart\",\"chartSettings\":{\"seriesLabelSettings\":[{\"seriesName\":\"Transaction Count\",\"color\":\"green\"},{\"seriesName\":\"Game Errors\",\"color\":\"redBright\"}]}}",
+                  "isOptional": true
+                },
+                {
+                  "name": "ParameterValues",
+                  "value": {},
+                  "isOptional": true
+                },
+                {
+                  "name": "Location",
+                  "value": "westeurope",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/AppInsightsExtension/PartType/PinnedNotebookQueryPart"
+            }
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "model": {
+        "timeRange": {
+          "value": {
+            "relative": {
+              "duration": 24,
+              "timeUnit": 1
+            }
+          },
+          "type": "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+        },
+        "filterLocale": {
+          "value": "en-us"
+        },
+        "filters": {
+          "value": {
+            "MsPortalFx_TimeRange": {
+              "model": {
+                "format": "utc",
+                "granularity": "auto",
+                "relative": "24h"
+              },
+              "displayCache": {
+                "name": "UTC Time",
+                "value": "Past 24 hours"
+              },
+              "filteredPartIds": [
+                "StartboardPart-PinnedNotebookQueryPart-00000000-0000-0000-0000-0000000000013",
+                "StartboardPart-PinnedNotebookQueryPart-00000000-0000-0000-0000-0000000000015",
+                "StartboardPart-PinnedNotebookQueryPart-00000000-0000-0000-0000-000000000005",
+                "StartboardPart-PinnedNotebookQueryPart-00000000-0000-0000-0000-000000000003",
+                "StartboardPart-PinnedNotebookQueryPart-00000000-0000-0000-0000-0000000000010",
+                "StartboardPart-PinnedNotebookQueryPart-00000000-0000-0000-0000-0000000000011",
+                "StartboardPart-PinnedNotebookQueryPart-00000000-0000-0000-0000-000000000004"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "name": "Azure Health vs. OpsTeam Metrics",
+  "type": "Microsoft.Portal/dashboards",
+  "location": "INSERT LOCATION",
+  "tags": {
+    "hidden-title": "Azure Health vs. OpsTeam Metrics"
+  },
+  "apiVersion": "2022-12-01-preview"
+}
