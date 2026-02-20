@@ -1,0 +1,856 @@
+{
+  "properties": {
+    "lenses": [
+      {
+        "order": 0,
+        "parts": [
+          {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "resourceTypeMode",
+                  "isOptional": true
+                },
+                {
+                  "name": "ComponentId",
+                  "isOptional": true
+                },
+                {
+                  "name": "Scope",
+                  "value": {
+                    "resourceIds": [
+                      "/subscriptions/00000000-0000-0000-0000-000000000006/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+                    ]
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "PartId",
+                  "value": "00000000-0000-0000-0000-000000000003",
+                  "isOptional": true
+                },
+                {
+                  "name": "Version",
+                  "value": "2.0",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "DashboardId",
+                  "isOptional": true
+                },
+                {
+                  "name": "DraftRequestParameters",
+                  "isOptional": true
+                },
+                {
+                  "name": "Query",
+                  "value": "let WarnMsgs = dynamic([\n    \"There was an error returned from the external system\",\n    \"Failed to get response from method ProcessTransaction. Operation will be retried.\",\n    \"Failed to get response from method ProcessPayout. Operation will be retried.\",\n    \"Failed to get response from method EndSession. Operation will be retried.\",\n    \"Failed to get response from method CloseSession. Operation will be retried.\"\n]);\nlet ExcludeMsgs = dynamic([\n    \"User session does not exist\",\n    \"Unable to obtain user session\",\n    \"Getting currency rate from currency service failed.\"\n]);\nlet Results =\nunion isfuzzy=true\n(\n    traces\n    | where timestamp > ago(24h)\n    | extend levelText = tolower(\n            coalesce(\n                tostring(customDimensions[\"level\"]),\n                tostring(customDimensions[\"Level\"]),\n                tostring(customDimensions[\"loglevel\"]),\n                tostring(customDimensions[\"LogLevel\"])\n            )\n        )\n    | extend IsError = (severityLevel == 3) or (levelText == \"error\")\n    | extend IsWarnMatch = (severityLevel == 2) and (tostring(message) has_any (WarnMsgs))\n    | extend Text = tostring(message), \n             Table = \"traces\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             OperationId = operation_Id,\n             _ResourceId = _ResourceId\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    exceptions\n    | where timestamp > ago(24h)\n    | extend Text = tostring(coalesce(outerMessage, innermostMessage, type, problemId, \"\"))\n    | extend Table = \"exceptions\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    requests\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Request failed: \", name, \" (\", resultCode, \")\")\n    | extend Table = \"requests\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    dependencies\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Dependency failed: \", name, \" (\", resultCode, \") - \", type, \" to \", target)\n    | extend Table = \"dependencies\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n)\n| where IsError or IsWarnMatch\n| where not(Text has_any (ExcludeMsgs))\n| extend ResourceGroup = extract(@\"resourceGroups/([^/]+)/\", 1, _ResourceId),\n         AiComponent   = extract(@\"components/([^/]+)$\", 1, _ResourceId)\n| extend NormalizedText = replace_regex(Text, @\"'\\d+->\\d+'\", \"'N->N'\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"\\b\\d+\\b\", \"N\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\", \"GUID\")\n| extend GroupKey = case(\n    Text startswith \"Request failed: \", \"Request failed\",\n    Text startswith \"Dependency failed: \", \"Dependency failed\",\n    Text startswith \"Failed to send critical files for client \", \"Failed to send critical files for client\",\n    Text startswith \"SyncService: Failed to fetch currency rate for \", \"SyncService: Failed to fetch currency rate\",\n    Text startswith \"FeatureX functionality is disabled for client \", \"FeatureX functionality is disabled for client\",\n    Text startswith \"Response did not arrive on time in \", \"Response did not arrive on time in\",\n    NormalizedText\n);\nlet TotalHits = toscalar(Results | count);\nResults\n| summarize Hits=count(), \n            FirstSeen=min(timestamp), \n            LastSeen=max(timestamp),\n            Roles=make_set(Role, 10), \n            Tables=make_set(Table, 4), \n            RGs=make_set(ResourceGroup, 5), \n            AIs=make_set(AiComponent, 5),\n            SampleTexts=make_set(Text, 5),\n            SampleOperationIds=make_set(OperationId, 3)\n  by GroupKey\n| extend Percentage = round(todouble(Hits) * 100.0 / todouble(TotalHits), 2)\n| order by Hits desc, LastSeen desc\n\n",
+                  "isOptional": true
+                },
+                {
+                  "name": "ControlType",
+                  "value": "FrameControlChart",
+                  "isOptional": true
+                },
+                {
+                  "name": "SpecificChart",
+                  "value": "Donut",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartTitle",
+                  "value": "Analytics",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartSubTitle",
+                  "value": "ClientA-ain",
+                  "isOptional": true
+                },
+                {
+                  "name": "Dimensions",
+                  "value": {
+                    "xAxis": {
+                      "name": "GroupKey",
+                      "type": "string"
+                    },
+                    "yAxis": [
+                      {
+                        "name": "Hits",
+                        "type": "long"
+                      }
+                    ],
+                    "splitBy": [],
+                    "aggregation": "Sum"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "LegendOptions",
+                  "value": {
+                    "isEnabled": true,
+                    "position": "Bottom"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "IsQueryContainTimeRange",
+                  "value": true,
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "PartTitle": "ClientA-ain",
+                  "PartSubTitle": "LOGS"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 6,
+              "y": 0,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "resourceTypeMode",
+                  "isOptional": true
+                },
+                {
+                  "name": "ComponentId",
+                  "isOptional": true
+                },
+                {
+                  "name": "Scope",
+                  "value": {
+                    "resourceIds": [
+                      "/subscriptions/00000000-0000-0000-0000-000000000006/resourceGroups/ClientB/providers/microsoft.insights/components/ClientB-ain"
+                    ]
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "PartId",
+                  "value": "135aa51d-857d-4823-ba40-ece6ca729c7f",
+                  "isOptional": true
+                },
+                {
+                  "name": "Version",
+                  "value": "2.0",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "DashboardId",
+                  "isOptional": true
+                },
+                {
+                  "name": "DraftRequestParameters",
+                  "isOptional": true
+                },
+                {
+                  "name": "Query",
+                  "value": "let WarnMsgs = dynamic([\n    \"There was an error returned from the external system\",\n    \"Failed to get response from method ProcessTransaction. Operation will be retried.\",\n    \"Failed to get response from method ProcessPayout. Operation will be retried.\",\n    \"Failed to get response from method EndSession. Operation will be retried.\",\n    \"Failed to get response from method CloseSession. Operation will be retried.\"\n]);\nlet ExcludeMsgs = dynamic([\n    \"User session does not exist\",\n    \"Unable to obtain user session\",\n    \"Getting currency rate from currency service failed.\"\n]);\nlet Results =\nunion isfuzzy=true\n(\n    traces\n    | where timestamp > ago(24h)\n    | extend levelText = tolower(\n            coalesce(\n                tostring(customDimensions[\"level\"]),\n                tostring(customDimensions[\"Level\"]),\n                tostring(customDimensions[\"loglevel\"]),\n                tostring(customDimensions[\"LogLevel\"])\n            )\n        )\n    | extend IsError = (severityLevel == 3) or (levelText == \"error\")\n    | extend IsWarnMatch = (severityLevel == 2) and (tostring(message) has_any (WarnMsgs))\n    | extend Text = tostring(message), \n             Table = \"traces\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             OperationId = operation_Id,\n             _ResourceId = _ResourceId\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    exceptions\n    | where timestamp > ago(24h)\n    | extend Text = tostring(coalesce(outerMessage, innermostMessage, type, problemId, \"\"))\n    | extend Table = \"exceptions\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    requests\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Request failed: \", name, \" (\", resultCode, \")\")\n    | extend Table = \"requests\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    dependencies\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Dependency failed: \", name, \" (\", resultCode, \") - \", type, \" to \", target)\n    | extend Table = \"dependencies\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n)\n| where IsError or IsWarnMatch\n| where not(Text has_any (ExcludeMsgs))\n| extend ResourceGroup = extract(@\"resourceGroups/([^/]+)/\", 1, _ResourceId),\n         AiComponent   = extract(@\"components/([^/]+)$\", 1, _ResourceId)\n| extend NormalizedText = replace_regex(Text, @\"'\\d+->\\d+'\", \"'N->N'\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"\\b\\d+\\b\", \"N\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\", \"GUID\")\n| extend GroupKey = case(\n    Text startswith \"Request failed: \", \"Request failed\",\n    Text startswith \"Dependency failed: \", \"Dependency failed\",\n    Text startswith \"Failed to send critical files for client \", \"Failed to send critical files for client\",\n    Text startswith \"SyncService: Failed to fetch currency rate for \", \"SyncService: Failed to fetch currency rate\",\n    Text startswith \"FeatureX functionality is disabled for client \", \"FeatureX functionality is disabled for client\",\n    Text startswith \"Response did not arrive on time in \", \"Response did not arrive on time in\",\n    NormalizedText\n);\nlet TotalHits = toscalar(Results | count);\nResults\n| summarize Hits=count(), \n            FirstSeen=min(timestamp), \n            LastSeen=max(timestamp),\n            Roles=make_set(Role, 10), \n            Tables=make_set(Table, 4), \n            RGs=make_set(ResourceGroup, 5), \n            AIs=make_set(AiComponent, 5),\n            SampleTexts=make_set(Text, 5),\n            SampleOperationIds=make_set(OperationId, 3)\n  by GroupKey\n| extend Percentage = round(todouble(Hits) * 100.0 / todouble(TotalHits), 2)\n| order by Hits desc, LastSeen desc\n\n",
+                  "isOptional": true
+                },
+                {
+                  "name": "ControlType",
+                  "value": "FrameControlChart",
+                  "isOptional": true
+                },
+                {
+                  "name": "SpecificChart",
+                  "value": "Donut",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartTitle",
+                  "value": "Analytics",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartSubTitle",
+                  "value": "ClientB-ain",
+                  "isOptional": true
+                },
+                {
+                  "name": "Dimensions",
+                  "value": {
+                    "xAxis": {
+                      "name": "GroupKey",
+                      "type": "string"
+                    },
+                    "yAxis": [
+                      {
+                        "name": "Hits",
+                        "type": "long"
+                      }
+                    ],
+                    "splitBy": [],
+                    "aggregation": "Sum"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "LegendOptions",
+                  "value": {
+                    "isEnabled": true,
+                    "position": "Bottom"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "IsQueryContainTimeRange",
+                  "value": true,
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "PartTitle": "ClientB-ain",
+                  "PartSubTitle": "LOGS"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 0,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "resourceTypeMode",
+                  "isOptional": true
+                },
+                {
+                  "name": "ComponentId",
+                  "isOptional": true
+                },
+                {
+                  "name": "Scope",
+                  "value": {
+                    "resourceIds": [
+                      "/subscriptions/00000000-0000-0000-0000-000000000006/resourceGroups/ClientC/providers/microsoft.insights/components/ClientC-ain"
+                    ]
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "PartId",
+                  "value": "065ef24e-078d-40ac-9e11-05b72d814d11",
+                  "isOptional": true
+                },
+                {
+                  "name": "Version",
+                  "value": "2.0",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "DashboardId",
+                  "isOptional": true
+                },
+                {
+                  "name": "DraftRequestParameters",
+                  "isOptional": true
+                },
+                {
+                  "name": "Query",
+                  "value": "let WarnMsgs = dynamic([\n    \"There was an error returned from the external system\",\n    \"Failed to get response from method ProcessTransaction. Operation will be retried.\",\n    \"Failed to get response from method ProcessPayout. Operation will be retried.\",\n    \"Failed to get response from method EndSession. Operation will be retried.\",\n    \"Failed to get response from method CloseSession. Operation will be retried.\"\n]);\nlet ExcludeMsgs = dynamic([\n    \"User session does not exist\",\n    \"Unable to obtain user session\",\n    \"Getting currency rate from currency service failed.\"\n]);\nlet Results =\nunion isfuzzy=true\n(\n    traces\n    | where timestamp > ago(24h)\n    | extend levelText = tolower(\n            coalesce(\n                tostring(customDimensions[\"level\"]),\n                tostring(customDimensions[\"Level\"]),\n                tostring(customDimensions[\"loglevel\"]),\n                tostring(customDimensions[\"LogLevel\"])\n            )\n        )\n    | extend IsError = (severityLevel == 3) or (levelText == \"error\")\n    | extend IsWarnMatch = (severityLevel == 2) and (tostring(message) has_any (WarnMsgs))\n    | extend Text = tostring(message), \n             Table = \"traces\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             OperationId = operation_Id,\n             _ResourceId = _ResourceId\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    exceptions\n    | where timestamp > ago(24h)\n    | extend Text = tostring(coalesce(outerMessage, innermostMessage, type, problemId, \"\"))\n    | extend Table = \"exceptions\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    requests\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Request failed: \", name, \" (\", resultCode, \")\")\n    | extend Table = \"requests\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    dependencies\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Dependency failed: \", name, \" (\", resultCode, \") - \", type, \" to \", target)\n    | extend Table = \"dependencies\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n)\n| where IsError or IsWarnMatch\n| where not(Text has_any (ExcludeMsgs))\n| extend ResourceGroup = extract(@\"resourceGroups/([^/]+)/\", 1, _ResourceId),\n         AiComponent   = extract(@\"components/([^/]+)$\", 1, _ResourceId)\n| extend NormalizedText = replace_regex(Text, @\"'\\d+->\\d+'\", \"'N->N'\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"\\b\\d+\\b\", \"N\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\", \"GUID\")\n| extend GroupKey = case(\n    Text startswith \"Request failed: \", \"Request failed\",\n    Text startswith \"Dependency failed: \", \"Dependency failed\",\n    Text startswith \"Failed to send critical files for client \", \"Failed to send critical files for client\",\n    Text startswith \"SyncService: Failed to fetch currency rate for \", \"SyncService: Failed to fetch currency rate\",\n    Text startswith \"FeatureX functionality is disabled for client \", \"FeatureX functionality is disabled for client\",\n    Text startswith \"Response did not arrive on time in \", \"Response did not arrive on time in\",\n    NormalizedText\n);\nlet TotalHits = toscalar(Results | count);\nResults\n| summarize Hits=count(), \n            FirstSeen=min(timestamp), \n            LastSeen=max(timestamp),\n            Roles=make_set(Role, 10), \n            Tables=make_set(Table, 4), \n            RGs=make_set(ResourceGroup, 5), \n            AIs=make_set(AiComponent, 5),\n            SampleTexts=make_set(Text, 5),\n            SampleOperationIds=make_set(OperationId, 3)\n  by GroupKey\n| extend Percentage = round(todouble(Hits) * 100.0 / todouble(TotalHits), 2)\n| order by Hits desc, LastSeen desc\n\n",
+                  "isOptional": true
+                },
+                {
+                  "name": "ControlType",
+                  "value": "FrameControlChart",
+                  "isOptional": true
+                },
+                {
+                  "name": "SpecificChart",
+                  "value": "Donut",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartTitle",
+                  "value": "Analytics",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartSubTitle",
+                  "value": "ClientC-ain",
+                  "isOptional": true
+                },
+                {
+                  "name": "Dimensions",
+                  "value": {
+                    "xAxis": {
+                      "name": "GroupKey",
+                      "type": "string"
+                    },
+                    "yAxis": [
+                      {
+                        "name": "Hits",
+                        "type": "long"
+                      }
+                    ],
+                    "splitBy": [],
+                    "aggregation": "Sum"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "LegendOptions",
+                  "value": {
+                    "isEnabled": true,
+                    "position": "Bottom"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "IsQueryContainTimeRange",
+                  "value": true,
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "PartTitle": "ClientC-ain",
+                  "PartSubTitle": "LOGS"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 4,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "resourceTypeMode",
+                  "isOptional": true
+                },
+                {
+                  "name": "ComponentId",
+                  "isOptional": true
+                },
+                {
+                  "name": "Scope",
+                  "value": {
+                    "resourceIds": [
+                      "/subscriptions/00000000-0000-0000-0000-000000000006/resourceGroups/ClientF/providers/microsoft.insights/components/ClientF-ain"
+                    ]
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "PartId",
+                  "value": "40f7a257-ecba-4305-9108-7a910e6a20a2",
+                  "isOptional": true
+                },
+                {
+                  "name": "Version",
+                  "value": "2.0",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "DashboardId",
+                  "isOptional": true
+                },
+                {
+                  "name": "DraftRequestParameters",
+                  "isOptional": true
+                },
+                {
+                  "name": "Query",
+                  "value": "let WarnMsgs = dynamic([\n    \"There was an error returned from the external system\",\n    \"Failed to get response from method ProcessTransaction. Operation will be retried.\",\n    \"Failed to get response from method ProcessPayout. Operation will be retried.\",\n    \"Failed to get response from method EndSession. Operation will be retried.\",\n    \"Failed to get response from method CloseSession. Operation will be retried.\"\n]);\nlet ExcludeMsgs = dynamic([\n    \"User session does not exist\",\n    \"Unable to obtain user session\",\n    \"Getting currency rate from currency service failed.\"\n]);\nlet Results =\nunion isfuzzy=true\n(\n    traces\n    | where timestamp > ago(24h)\n    | extend levelText = tolower(\n            coalesce(\n                tostring(customDimensions[\"level\"]),\n                tostring(customDimensions[\"Level\"]),\n                tostring(customDimensions[\"loglevel\"]),\n                tostring(customDimensions[\"LogLevel\"])\n            )\n        )\n    | extend IsError = (severityLevel == 3) or (levelText == \"error\")\n    | extend IsWarnMatch = (severityLevel == 2) and (tostring(message) has_any (WarnMsgs))\n    | extend Text = tostring(message), \n             Table = \"traces\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             OperationId = operation_Id,\n             _ResourceId = _ResourceId\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    exceptions\n    | where timestamp > ago(24h)\n    | extend Text = tostring(coalesce(outerMessage, innermostMessage, type, problemId, \"\"))\n    | extend Table = \"exceptions\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    requests\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Request failed: \", name, \" (\", resultCode, \")\")\n    | extend Table = \"requests\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    dependencies\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Dependency failed: \", name, \" (\", resultCode, \") - \", type, \" to \", target)\n    | extend Table = \"dependencies\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n)\n| where IsError or IsWarnMatch\n| where not(Text has_any (ExcludeMsgs))\n| extend ResourceGroup = extract(@\"resourceGroups/([^/]+)/\", 1, _ResourceId),\n         AiComponent   = extract(@\"components/([^/]+)$\", 1, _ResourceId)\n| extend NormalizedText = replace_regex(Text, @\"'\\d+->\\d+'\", \"'N->N'\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"\\b\\d+\\b\", \"N\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\", \"GUID\")\n| extend GroupKey = case(\n    Text startswith \"Request failed: \", \"Request failed\",\n    Text startswith \"Dependency failed: \", \"Dependency failed\",\n    Text startswith \"Failed to send critical files for client \", \"Failed to send critical files for client\",\n    Text startswith \"SyncService: Failed to fetch currency rate for \", \"SyncService: Failed to fetch currency rate\",\n    Text startswith \"FeatureX functionality is disabled for client \", \"FeatureX functionality is disabled for client\",\n    Text startswith \"Response did not arrive on time in \", \"Response did not arrive on time in\",\n    NormalizedText\n);\nlet TotalHits = toscalar(Results | count);\nResults\n| summarize Hits=count(), \n            FirstSeen=min(timestamp), \n            LastSeen=max(timestamp),\n            Roles=make_set(Role, 10), \n            Tables=make_set(Table, 4), \n            RGs=make_set(ResourceGroup, 5), \n            AIs=make_set(AiComponent, 5),\n            SampleTexts=make_set(Text, 5),\n            SampleOperationIds=make_set(OperationId, 3)\n  by GroupKey\n| extend Percentage = round(todouble(Hits) * 100.0 / todouble(TotalHits), 2)\n| order by Hits desc, LastSeen desc\n\n",
+                  "isOptional": true
+                },
+                {
+                  "name": "ControlType",
+                  "value": "FrameControlChart",
+                  "isOptional": true
+                },
+                {
+                  "name": "SpecificChart",
+                  "value": "Donut",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartTitle",
+                  "value": "Analytics",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartSubTitle",
+                  "value": "ClientF-ain",
+                  "isOptional": true
+                },
+                {
+                  "name": "Dimensions",
+                  "value": {
+                    "xAxis": {
+                      "name": "GroupKey",
+                      "type": "string"
+                    },
+                    "yAxis": [
+                      {
+                        "name": "Hits",
+                        "type": "long"
+                      }
+                    ],
+                    "splitBy": [],
+                    "aggregation": "Sum"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "LegendOptions",
+                  "value": {
+                    "isEnabled": true,
+                    "position": "Bottom"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "IsQueryContainTimeRange",
+                  "value": true,
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "PartTitle": "ClientF-ain",
+                  "PartSubTitle": "LOGS"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 6,
+              "y": 4,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "resourceTypeMode",
+                  "isOptional": true
+                },
+                {
+                  "name": "ComponentId",
+                  "isOptional": true
+                },
+                {
+                  "name": "Scope",
+                  "value": {
+                    "resourceIds": [
+                      "/subscriptions/00000000-0000-0000-0000-000000000006/resourceGroups/NEOCW01/providers/microsoft.insights/components/NEOCW01-ain"
+                    ]
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "PartId",
+                  "value": "4048fc99-08a2-4cdf-9471-6b0ed1488d5c",
+                  "isOptional": true
+                },
+                {
+                  "name": "Version",
+                  "value": "2.0",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "DashboardId",
+                  "isOptional": true
+                },
+                {
+                  "name": "DraftRequestParameters",
+                  "isOptional": true
+                },
+                {
+                  "name": "Query",
+                  "value": "let WarnMsgs = dynamic([\n    \"There was an error returned from the external system\",\n    \"Failed to get response from method ProcessTransaction. Operation will be retried.\",\n    \"Failed to get response from method ProcessPayout. Operation will be retried.\",\n    \"Failed to get response from method EndSession. Operation will be retried.\",\n    \"Failed to get response from method CloseSession. Operation will be retried.\"\n]);\nlet ExcludeMsgs = dynamic([\n    \"User session does not exist\",\n    \"Unable to obtain user session\",\n    \"Getting currency rate from currency service failed.\"\n]);\nlet Results =\nunion isfuzzy=true\n(\n    traces\n    | where timestamp > ago(24h)\n    | extend levelText = tolower(\n            coalesce(\n                tostring(customDimensions[\"level\"]),\n                tostring(customDimensions[\"Level\"]),\n                tostring(customDimensions[\"loglevel\"]),\n                tostring(customDimensions[\"LogLevel\"])\n            )\n        )\n    | extend IsError = (severityLevel == 3) or (levelText == \"error\")\n    | extend IsWarnMatch = (severityLevel == 2) and (tostring(message) has_any (WarnMsgs))\n    | extend Text = tostring(message), \n             Table = \"traces\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             OperationId = operation_Id,\n             _ResourceId = _ResourceId\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    exceptions\n    | where timestamp > ago(24h)\n    | extend Text = tostring(coalesce(outerMessage, innermostMessage, type, problemId, \"\"))\n    | extend Table = \"exceptions\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    requests\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Request failed: \", name, \" (\", resultCode, \")\")\n    | extend Table = \"requests\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    dependencies\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Dependency failed: \", name, \" (\", resultCode, \") - \", type, \" to \", target)\n    | extend Table = \"dependencies\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n)\n| where IsError or IsWarnMatch\n| where not(Text has_any (ExcludeMsgs))\n| extend ResourceGroup = extract(@\"resourceGroups/([^/]+)/\", 1, _ResourceId),\n         AiComponent   = extract(@\"components/([^/]+)$\", 1, _ResourceId)\n| extend NormalizedText = replace_regex(Text, @\"'\\d+->\\d+'\", \"'N->N'\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"\\b\\d+\\b\", \"N\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\", \"GUID\")\n| extend GroupKey = case(\n    Text startswith \"Request failed: \", \"Request failed\",\n    Text startswith \"Dependency failed: \", \"Dependency failed\",\n    Text startswith \"Failed to send critical files for client \", \"Failed to send critical files for client\",\n    Text startswith \"SyncService: Failed to fetch currency rate for \", \"SyncService: Failed to fetch currency rate\",\n    Text startswith \"FeatureX functionality is disabled for client \", \"FeatureX functionality is disabled for client\",\n    Text startswith \"Response did not arrive on time in \", \"Response did not arrive on time in\",\n    NormalizedText\n);\nlet TotalHits = toscalar(Results | count);\nResults\n| summarize Hits=count(), \n            FirstSeen=min(timestamp), \n            LastSeen=max(timestamp),\n            Roles=make_set(Role, 10), \n            Tables=make_set(Table, 4), \n            RGs=make_set(ResourceGroup, 5), \n            AIs=make_set(AiComponent, 5),\n            SampleTexts=make_set(Text, 5),\n            SampleOperationIds=make_set(OperationId, 3)\n  by GroupKey\n| extend Percentage = round(todouble(Hits) * 100.0 / todouble(TotalHits), 2)\n| order by Hits desc, LastSeen desc\n\n",
+                  "isOptional": true
+                },
+                {
+                  "name": "ControlType",
+                  "value": "FrameControlChart",
+                  "isOptional": true
+                },
+                {
+                  "name": "SpecificChart",
+                  "value": "Donut",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartTitle",
+                  "value": "Analytics",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartSubTitle",
+                  "value": "NEOCW01-ain",
+                  "isOptional": true
+                },
+                {
+                  "name": "Dimensions",
+                  "value": {
+                    "xAxis": {
+                      "name": "GroupKey",
+                      "type": "string"
+                    },
+                    "yAxis": [
+                      {
+                        "name": "Hits",
+                        "type": "long"
+                      }
+                    ],
+                    "splitBy": [],
+                    "aggregation": "Sum"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "LegendOptions",
+                  "value": {
+                    "isEnabled": true,
+                    "position": "Bottom"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "IsQueryContainTimeRange",
+                  "value": true,
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "PartTitle": "NEOCW01-ain",
+                  "PartSubTitle": "LOGS"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 4,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "resourceTypeMode",
+                  "isOptional": true
+                },
+                {
+                  "name": "ComponentId",
+                  "isOptional": true
+                },
+                {
+                  "name": "Scope",
+                  "value": {
+                    "resourceIds": [
+                      "/subscriptions/00000000-0000-0000-0000-000000000006/resourceGroups/ClientD/providers/microsoft.insights/components/ClientD-ain"
+                    ]
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "PartId",
+                  "value": "00000000-0000-0000-0000-000000000002",
+                  "isOptional": true
+                },
+                {
+                  "name": "Version",
+                  "value": "2.0",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "DashboardId",
+                  "isOptional": true
+                },
+                {
+                  "name": "DraftRequestParameters",
+                  "isOptional": true
+                },
+                {
+                  "name": "Query",
+                  "value": "let WarnMsgs = dynamic([\n    \"There was an error returned from the external system\",\n    \"Failed to get response from method ProcessTransaction. Operation will be retried.\",\n    \"Failed to get response from method ProcessPayout. Operation will be retried.\",\n    \"Failed to get response from method EndSession. Operation will be retried.\",\n    \"Failed to get response from method CloseSession. Operation will be retried.\"\n]);\nlet ExcludeMsgs = dynamic([\n    \"User session does not exist\",\n    \"Unable to obtain user session\",\n    \"Getting currency rate from currency service failed.\"\n]);\nlet Results =\nunion isfuzzy=true\n(\n    traces\n    | where timestamp > ago(24h)\n    | extend levelText = tolower(\n            coalesce(\n                tostring(customDimensions[\"level\"]),\n                tostring(customDimensions[\"Level\"]),\n                tostring(customDimensions[\"loglevel\"]),\n                tostring(customDimensions[\"LogLevel\"])\n            )\n        )\n    | extend IsError = (severityLevel == 3) or (levelText == \"error\")\n    | extend IsWarnMatch = (severityLevel == 2) and (tostring(message) has_any (WarnMsgs))\n    | extend Text = tostring(message), \n             Table = \"traces\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             OperationId = operation_Id,\n             _ResourceId = _ResourceId\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    exceptions\n    | where timestamp > ago(24h)\n    | extend Text = tostring(coalesce(outerMessage, innermostMessage, type, problemId, \"\"))\n    | extend Table = \"exceptions\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    requests\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Request failed: \", name, \" (\", resultCode, \")\")\n    | extend Table = \"requests\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    dependencies\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Dependency failed: \", name, \" (\", resultCode, \") - \", type, \" to \", target)\n    | extend Table = \"dependencies\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n)\n| where IsError or IsWarnMatch\n| where not(Text has_any (ExcludeMsgs))\n| extend ResourceGroup = extract(@\"resourceGroups/([^/]+)/\", 1, _ResourceId),\n         AiComponent   = extract(@\"components/([^/]+)$\", 1, _ResourceId)\n| extend NormalizedText = replace_regex(Text, @\"'\\d+->\\d+'\", \"'N->N'\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"\\b\\d+\\b\", \"N\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\", \"GUID\")\n| extend GroupKey = case(\n    Text startswith \"Request failed: \", \"Request failed\",\n    Text startswith \"Dependency failed: \", \"Dependency failed\",\n    Text startswith \"Failed to send critical files for client \", \"Failed to send critical files for client\",\n    Text startswith \"SyncService: Failed to fetch currency rate for \", \"SyncService: Failed to fetch currency rate\",\n    Text startswith \"FeatureX functionality is disabled for client \", \"FeatureX functionality is disabled for client\",\n    Text startswith \"Response did not arrive on time in \", \"Response did not arrive on time in\",\n    NormalizedText\n);\nlet TotalHits = toscalar(Results | count);\nResults\n| summarize Hits=count(), \n            FirstSeen=min(timestamp), \n            LastSeen=max(timestamp),\n            Roles=make_set(Role, 10), \n            Tables=make_set(Table, 4), \n            RGs=make_set(ResourceGroup, 5), \n            AIs=make_set(AiComponent, 5),\n            SampleTexts=make_set(Text, 5),\n            SampleOperationIds=make_set(OperationId, 3)\n  by GroupKey\n| extend Percentage = round(todouble(Hits) * 100.0 / todouble(TotalHits), 2)\n| order by Hits desc, LastSeen desc\n\n",
+                  "isOptional": true
+                },
+                {
+                  "name": "ControlType",
+                  "value": "FrameControlChart",
+                  "isOptional": true
+                },
+                {
+                  "name": "SpecificChart",
+                  "value": "Donut",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartTitle",
+                  "value": "Analytics",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartSubTitle",
+                  "value": "ClientD-ain",
+                  "isOptional": true
+                },
+                {
+                  "name": "Dimensions",
+                  "value": {
+                    "xAxis": {
+                      "name": "GroupKey",
+                      "type": "string"
+                    },
+                    "yAxis": [
+                      {
+                        "name": "Hits",
+                        "type": "long"
+                      }
+                    ],
+                    "splitBy": [],
+                    "aggregation": "Sum"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "LegendOptions",
+                  "value": {
+                    "isEnabled": true,
+                    "position": "Bottom"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "IsQueryContainTimeRange",
+                  "value": true,
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "PartTitle": "ClientD-ain",
+                  "PartSubTitle": "OpsTeam"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 8,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "resourceTypeMode",
+                  "isOptional": true
+                },
+                {
+                  "name": "ComponentId",
+                  "isOptional": true
+                },
+                {
+                  "name": "Scope",
+                  "value": {
+                    "resourceIds": [
+                      "/subscriptions/00000000-0000-0000-0000-000000000006/resourceGroups/ClientE/providers/microsoft.insights/components/ClientE-ain"
+                    ]
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "PartId",
+                  "value": "149419f3-87d5-47a7-829c-009c022c75a7",
+                  "isOptional": true
+                },
+                {
+                  "name": "Version",
+                  "value": "2.0",
+                  "isOptional": true
+                },
+                {
+                  "name": "TimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "DashboardId",
+                  "isOptional": true
+                },
+                {
+                  "name": "DraftRequestParameters",
+                  "isOptional": true
+                },
+                {
+                  "name": "Query",
+                  "value": "let WarnMsgs = dynamic([\n    \"There was an error returned from the external system\",\n    \"Failed to get response from method ProcessTransaction. Operation will be retried.\",\n    \"Failed to get response from method ProcessPayout. Operation will be retried.\",\n    \"Failed to get response from method EndSession. Operation will be retried.\",\n    \"Failed to get response from method CloseSession. Operation will be retried.\"\n]);\nlet ExcludeMsgs = dynamic([\n    \"User session does not exist\",\n    \"Unable to obtain user session\",\n    \"Getting currency rate from currency service failed.\"\n]);\nlet Results =\nunion isfuzzy=true\n(\n    traces\n    | where timestamp > ago(24h)\n    | extend levelText = tolower(\n            coalesce(\n                tostring(customDimensions[\"level\"]),\n                tostring(customDimensions[\"Level\"]),\n                tostring(customDimensions[\"loglevel\"]),\n                tostring(customDimensions[\"LogLevel\"])\n            )\n        )\n    | extend IsError = (severityLevel == 3) or (levelText == \"error\")\n    | extend IsWarnMatch = (severityLevel == 2) and (tostring(message) has_any (WarnMsgs))\n    | extend Text = tostring(message), \n             Table = \"traces\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             OperationId = operation_Id,\n             _ResourceId = _ResourceId\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    exceptions\n    | where timestamp > ago(24h)\n    | extend Text = tostring(coalesce(outerMessage, innermostMessage, type, problemId, \"\"))\n    | extend Table = \"exceptions\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    requests\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Request failed: \", name, \" (\", resultCode, \")\")\n    | extend Table = \"requests\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n),\n(\n    dependencies\n    | where timestamp > ago(24h)\n    | where success == false\n    | extend Text = strcat(\"Dependency failed: \", name, \" (\", resultCode, \") - \", type, \" to \", target)\n    | extend Table = \"dependencies\", \n             Role = cloud_RoleName,\n             AppRoleInstance = cloud_RoleInstance,\n             severityLevel = 3,\n             IsError = true, \n             IsWarnMatch = false,\n             OperationId = operation_Id\n    | project timestamp, Table, Role, AppRoleInstance, severityLevel, Text, OperationId, _ResourceId, IsError, IsWarnMatch\n)\n| where IsError or IsWarnMatch\n| where not(Text has_any (ExcludeMsgs))\n| extend ResourceGroup = extract(@\"resourceGroups/([^/]+)/\", 1, _ResourceId),\n         AiComponent   = extract(@\"components/([^/]+)$\", 1, _ResourceId)\n| extend NormalizedText = replace_regex(Text, @\"'\\d+->\\d+'\", \"'N->N'\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"\\b\\d+\\b\", \"N\")\n| extend NormalizedText = replace_regex(NormalizedText, @\"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\", \"GUID\")\n| extend GroupKey = case(\n    Text startswith \"Request failed: \", \"Request failed\",\n    Text startswith \"Dependency failed: \", \"Dependency failed\",\n    Text startswith \"Failed to send critical files for client \", \"Failed to send critical files for client\",\n    Text startswith \"SyncService: Failed to fetch currency rate for \", \"SyncService: Failed to fetch currency rate\",\n    Text startswith \"FeatureX functionality is disabled for client \", \"FeatureX functionality is disabled for client\",\n    Text startswith \"Response did not arrive on time in \", \"Response did not arrive on time in\",\n    NormalizedText\n);\nlet TotalHits = toscalar(Results | count);\nResults\n| summarize Hits=count(), \n            FirstSeen=min(timestamp), \n            LastSeen=max(timestamp),\n            Roles=make_set(Role, 10), \n            Tables=make_set(Table, 4), \n            RGs=make_set(ResourceGroup, 5), \n            AIs=make_set(AiComponent, 5),\n            SampleTexts=make_set(Text, 5),\n            SampleOperationIds=make_set(OperationId, 3)\n  by GroupKey\n| extend Percentage = round(todouble(Hits) * 100.0 / todouble(TotalHits), 2)\n| order by Hits desc, LastSeen desc\n\n",
+                  "isOptional": true
+                },
+                {
+                  "name": "ControlType",
+                  "value": "FrameControlChart",
+                  "isOptional": true
+                },
+                {
+                  "name": "SpecificChart",
+                  "value": "Donut",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartTitle",
+                  "value": "Analytics",
+                  "isOptional": true
+                },
+                {
+                  "name": "PartSubTitle",
+                  "value": "ClientE-ain",
+                  "isOptional": true
+                },
+                {
+                  "name": "Dimensions",
+                  "value": {
+                    "xAxis": {
+                      "name": "GroupKey",
+                      "type": "string"
+                    },
+                    "yAxis": [
+                      {
+                        "name": "Hits",
+                        "type": "long"
+                      }
+                    ],
+                    "splitBy": [],
+                    "aggregation": "Sum"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "LegendOptions",
+                  "value": {
+                    "isEnabled": true,
+                    "position": "Bottom"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "IsQueryContainTimeRange",
+                  "value": true,
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "PartTitle": "ClientE-ain",
+                  "PartSubTitle": "OpsTeam"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "model": {
+        "timeRange": {
+          "value": {
+            "relative": {
+              "duration": 24,
+              "timeUnit": 1
+            }
+          },
+          "type": "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+        },
+        "filterLocale": {
+          "value": "en-us"
+        },
+        "filters": {
+          "value": {
+            "MsPortalFx_TimeRange": {
+              "model": {
+                "format": "utc",
+                "granularity": "auto",
+                "relative": "24h"
+              },
+              "displayCache": {
+                "name": "UTC Time",
+                "value": "Past 24 hours"
+              },
+              "filteredPartIds": [
+                "StartboardPart-LogsDashboardPart-00000000-0000-0000-0000-000000000005",
+                "StartboardPart-LogsDashboardPart-1f27d8b0-2ca9-4b95-824d-695b06572f6a",
+                "StartboardPart-LogsDashboardPart-2afb355e-ffa0-4202-9963-fca8e1d51012",
+                "StartboardPart-LogsDashboardPart-2afb355e-ffa0-4202-9963-fca8e1d51045",
+                "StartboardPart-LogsDashboardPart-2afb355e-ffa0-4202-9963-fca8e1d51079",
+                "StartboardPart-LogsDashboardPart-00000000-0000-0000-0000-000000000001",
+                "StartboardPart-LogsDashboardPart-00000000-0000-0000-0000-000000000004"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "name": "OpsTeam Error Logs",
+  "type": "Microsoft.Portal/dashboards",
+  "location": "INSERT LOCATION",
+  "tags": {
+    "hidden-title": "OpsTeam Error Logs"
+  },
+  "apiVersion": "2022-12-01-preview"
+}
