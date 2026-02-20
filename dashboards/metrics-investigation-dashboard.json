@@ -1,0 +1,4160 @@
+{
+  "properties": {
+    "lenses": [
+      {
+        "order": 0,
+        "parts": [
+          {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientE/providers/microsoft.insights/components/ClientE-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 7,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count"
+                          }
+                        }
+                      ],
+                      "title": "Count Transaction Count for ClientE-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "absolute": {
+                          "startTime": "2025-10-13T09:04:22.113Z",
+                          "endTime": "2025-10-14T00:14:11.683Z"
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientE/providers/microsoft.insights/components/ClientE-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 7,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count"
+                          }
+                        }
+                      ],
+                      "title": "Count Transaction Count for ClientE-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 4,
+              "y": 0,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientC/providers/microsoft.insights/components/ClientC-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientC-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientC-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientC/providers/microsoft.insights/components/ClientC-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientC-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientC-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 8,
+              "y": 0,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientD/providers/microsoft.insights/components/ClientD-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientD-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientD-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientD/providers/microsoft.insights/components/ClientD-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientD-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientD-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 0,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientE/providers/microsoft.insights/components/ClientE-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientE-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientE-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientE/providers/microsoft.insights/components/ClientE-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientE-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientE-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 16,
+              "y": 0,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientF/providers/microsoft.insights/components/ClientF-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientF-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientF/providers/microsoft.insights/components/ClientF-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientF-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 3,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientB/providers/microsoft.insights/components/ClientB-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientB-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientB-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientB/providers/microsoft.insights/components/ClientB-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientB-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientB-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 4,
+              "y": 3,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientA-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientA-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientA-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientA-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 8,
+              "y": 3,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientA-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientA-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientA-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientA-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 3,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientB/providers/microsoft.insights/components/ClientB-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientB-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientB-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientB/providers/microsoft.insights/components/ClientB-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientB-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientB-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 16,
+              "y": 3,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientC/providers/microsoft.insights/components/ClientC-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientC-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientC-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientC/providers/microsoft.insights/components/ClientC-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientC-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientC-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 6,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientA-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientA-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientA-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientA-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 4,
+              "y": 6,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientD/providers/microsoft.insights/components/ClientD-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientD-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientD-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientD/providers/microsoft.insights/components/ClientD-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientD-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientD-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 8,
+              "y": 6,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientB/providers/microsoft.insights/components/ClientB-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientB-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientB-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientB/providers/microsoft.insights/components/ClientB-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientB-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientB-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 6,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientE/providers/microsoft.insights/components/ClientE-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientE-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientE-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientE/providers/microsoft.insights/components/ClientE-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientE-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientE-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 16,
+              "y": 6,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientF/providers/microsoft.insights/components/ClientF-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientF-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientF-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientF/providers/microsoft.insights/components/ClientF-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientF-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientF-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 9,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientC/providers/microsoft.insights/components/ClientC-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientC-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientC-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientC/providers/microsoft.insights/components/ClientC-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientC-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientC-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 4,
+              "y": 9,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientG/providers/microsoft.insights/components/ClientG-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientG-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientG-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientG/providers/microsoft.insights/components/ClientG-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientG-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientG-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 8,
+              "y": 9,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientD/providers/microsoft.insights/components/ClientD-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientD-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientD-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientD/providers/microsoft.insights/components/ClientD-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientD-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientD-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 9,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientE/providers/microsoft.insights/components/ClientE-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientE-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientE-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientE/providers/microsoft.insights/components/ClientE-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientE-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientE-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 16,
+              "y": 9,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientH/providers/microsoft.insights/components/ClientH-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientH-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientH-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientH/providers/microsoft.insights/components/ClientH-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientH-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientH-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 12,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientI/providers/microsoft.insights/components/ClientI-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientI-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientI-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientI/providers/microsoft.insights/components/ClientI-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientI-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientI-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 4,
+              "y": 12,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientF/providers/microsoft.insights/components/ClientF-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientF-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientF-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientF/providers/microsoft.insights/components/ClientF-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientF-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientF-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 8,
+              "y": 12,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientG/providers/microsoft.insights/components/ClientG-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientG-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientG-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientG/providers/microsoft.insights/components/ClientG-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientG-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientG-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 12,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientJ/providers/microsoft.insights/components/ClientJ-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientJ-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientJ-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientJ/providers/microsoft.insights/components/ClientJ-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientJ-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientJ-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 16,
+              "y": 12,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientK/providers/microsoft.insights/components/ClientK-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientK-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientK-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientK/providers/microsoft.insights/components/ClientK-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientK-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientK-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 15,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientL/providers/microsoft.insights/components/ClientL-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientL-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientL-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientL/providers/microsoft.insights/components/ClientL-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientL-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientL-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 4,
+              "y": 15,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientH/providers/microsoft.insights/components/ClientH-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientH-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientH-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientH/providers/microsoft.insights/components/ClientH-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientH-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientH-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 8,
+              "y": 15,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientM/providers/microsoft.insights/components/ClientM-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientM-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientM/providers/microsoft.insights/components/ClientM-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientM-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 15,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientN/providers/microsoft.insights/components/ClientN-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientN-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientN-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientN/providers/microsoft.insights/components/ClientN-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientN-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientN-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 16,
+              "y": 15,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientO/providers/microsoft.insights/components/ClientO-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientO-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientO-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientO/providers/microsoft.insights/components/ClientO-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientO-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientO-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 18,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientP/providers/microsoft.insights/components/ClientP-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientP-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientP-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientP/providers/microsoft.insights/components/ClientP-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientP-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientP-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 4,
+              "y": 18,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientQ/providers/microsoft.insights/components/ClientQ-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientQ-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientQ-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientQ/providers/microsoft.insights/components/ClientQ-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientQ-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientQ-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 8,
+              "y": 18,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientR/providers/microsoft.insights/components/ClientR-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientR-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientR-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientR/providers/microsoft.insights/components/ClientR-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientR-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientR-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 12,
+              "y": 18,
+              "colSpan": 4,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientS/providers/microsoft.insights/components/ClientS-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientS-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientS-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      },
+                      "timespan": {
+                        "relative": {
+                          "duration": 86400000
+                        },
+                        "showUTCTime": false,
+                        "grain": 2
+                      }
+                    }
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/00000000-0000-0000-0000-0000000000029/resourceGroups/ClientS/providers/microsoft.insights/components/ClientS-ain"
+                          },
+                          "name": "customMetrics/Transaction Count",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.insights/components/kusto",
+                          "metricVisualization": {
+                            "displayName": "Transaction Count",
+                            "resourceDisplayName": "ClientS-ain"
+                          }
+                        }
+                      ],
+                      "title": "Sum Transaction Count for ClientS-ain",
+                      "titleKind": 1,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
+                    }
+                  }
+                }
+              },
+              "filters": {
+                "MsPortalFx_TimeRange": {
+                  "model": {
+                    "format": "local",
+                    "granularity": "1m",
+                    "relative": "1440m"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "model": {
+        "timeRange": {
+          "value": {
+            "relative": {
+              "duration": 24,
+              "timeUnit": 1
+            }
+          },
+          "type": "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+        },
+        "filterLocale": {
+          "value": "en-us"
+        },
+        "filters": {
+          "value": {
+            "MsPortalFx_TimeRange": {
+              "model": {
+                "format": "utc",
+                "granularity": "auto",
+                "relative": "24h"
+              },
+              "displayCache": {
+                "name": "UTC Time",
+                "value": "Past 24 hours"
+              },
+              "filteredPartIds": [
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-000000000005",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000030",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000010",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000026",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-000000000001",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000016",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000018",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000025",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-000000000003",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000024",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000023",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000020",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000019",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000027",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-000000000002",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000031",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000014",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-000000000008",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000035",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000021",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-000000000009",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000028",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000033",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000022",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-000000000004",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-000000000006",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000015",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000012",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000034",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-000000000007",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000032",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000013",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000017",
+                "StartboardPart-MonitorChartPart-00000000-0000-0000-0000-0000000000011"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "name": "OpsTeam Metrics",
+  "type": "Microsoft.Portal/dashboards",
+  "location": "INSERT LOCATION",
+  "tags": {
+    "hidden-title": "OpsTeam Metrics"
+  },
+  "apiVersion": "2022-12-01-preview"
+}
