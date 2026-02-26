@@ -1,0 +1,460 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "# 🖥️ ClientA – Per-Node Monitoring\n---\nMonitoring of all nodes in the ClientA system. Each line = one node. If a node goes down, its line disappears."
+      },
+      "name": "header"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "timeRange",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "type": 4,
+            "isRequired": true,
+            "value": {
+              "durationMs": 86400000
+            },
+            "typeSettings": {
+              "selectableValues": [
+                {
+                  "durationMs": 3600000
+                },
+                {
+                  "durationMs": 14400000
+                },
+                {
+                  "durationMs": 43200000
+                },
+                {
+                  "durationMs": 86400000
+                },
+                {
+                  "durationMs": 604800000
+                }
+              ],
+              "allowCustom": true
+            },
+            "label": "Time Range"
+          },
+          {
+            "id": "lawResource",
+            "version": "KqlParameterItem/1.0",
+            "name": "lawResource",
+            "type": 5,
+            "isHiddenWhenLocked": true,
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.operationalinsights/workspaces": true
+              }
+            },
+            "jsonData": "[\"/subscriptions/YOUR_SUBSCRIPTION_ID/resourcegroups/clienta/providers/microsoft.operationalinsights/workspaces/clienta-law\"]",
+            "label": "LAW Resource"
+          },
+          {
+            "id": "ainResource",
+            "version": "KqlParameterItem/1.0",
+            "name": "ainResource",
+            "type": 5,
+            "isHiddenWhenLocked": true,
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.insights/components": true
+              }
+            },
+            "jsonData": "[\"/subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain\"]",
+            "label": "App Insights Resource"
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "name": "parameters"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "## 💓 Heartbeat – Node Status"
+      },
+      "name": "section-heartbeat"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "Heartbeat\n| where Computer in (\"node-05\", \"node-06\", \"node-19\")\n| summarize LastHeartbeat = max(TimeGenerated) by Computer\n| extend MinutesAgo = datetime_diff('minute', now(), LastHeartbeat)\n| extend Status = iff(MinutesAgo > 5, \"❌ DOWN\", \"✅ UP\")\n| extend StatusSort = iff(MinutesAgo > 5, 0, 1)\n| project Computer, Status, LastHeartbeat, MinutesAgo\n| order by MinutesAgo desc",
+        "size": 1,
+        "title": "Node Status – current state",
+        "timeContext": {
+          "durationMs": 0,
+          "endTime": null,
+          "createdTime": "2021-01-01T00:00:00.000Z",
+          "isInitialTime": false,
+          "grain": 1,
+          "useDashboardTimeRange": false
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "table",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Status",
+              "formatter": 1
+            },
+            {
+              "columnMatch": "MinutesAgo",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "redGreen",
+                "customColumnWidthSetting": "100px"
+              },
+              "numberFormat": {
+                "unit": 0,
+                "options": {
+                  "style": "decimal",
+                  "maximumFractionDigits": 0
+                }
+              }
+            }
+          ],
+          "labelSettings": [
+            {
+              "columnId": "Computer",
+              "label": "Node"
+            },
+            {
+              "columnId": "Status",
+              "label": "Status"
+            },
+            {
+              "columnId": "LastHeartbeat",
+              "label": "Last Heartbeat"
+            },
+            {
+              "columnId": "MinutesAgo",
+              "label": "Minutes since last HB"
+            }
+          ]
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourcegroups/clienta/providers/microsoft.operationalinsights/workspaces/clienta-law"
+        ]
+      },
+      "name": "heartbeat-status-grid"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "Heartbeat\n| where Computer in (\"node-05\", \"node-06\", \"node-19\")\n| summarize HeartbeatCount = count() by Computer, bin(TimeGenerated, 5m)\n| render timechart",
+        "size": 0,
+        "title": "Heartbeat – time series (SCOM-like lines per node)",
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "timechart",
+        "chartSettings": {
+          "showLegend": true
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourcegroups/clienta/providers/microsoft.operationalinsights/workspaces/clienta-law"
+        ]
+      },
+      "name": "heartbeat-timechart"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "## 💾 Disk – Bytes/sec"
+      },
+      "name": "section-disk-bytes"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "Perf\n| where Computer in (\"node-05\", \"node-06\", \"node-19\")\n| where CounterName == \"Disk Bytes/sec\"\n| summarize avg(CounterValue) by Computer, bin(TimeGenerated, 5m)\n| render timechart",
+        "size": 0,
+        "title": "Disk Bytes/sec – all nodes",
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "timechart",
+        "chartSettings": {
+          "showLegend": true,
+          "ySettings": {
+            "numberFormatSettings": {
+              "unit": 5,
+              "options": {
+                "style": "decimal",
+                "maximumFractionDigits": 1
+              }
+            }
+          }
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourcegroups/clienta/providers/microsoft.operationalinsights/workspaces/clienta-law"
+        ]
+      },
+      "name": "disk-bytes-chart"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "## ⏳ Disk – Avg. Queue Length"
+      },
+      "name": "section-disk-queue"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "Perf\n| where Computer in (\"node-05\", \"node-06\", \"node-19\")\n| where CounterName == \"Avg. Disk Queue Length\"\n| summarize avg(CounterValue) by Computer, bin(TimeGenerated, 5m)\n| render timechart",
+        "size": 0,
+        "title": "Avg. Disk Queue Length – all nodes (>1 = potential bottleneck)",
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "timechart",
+        "chartSettings": {
+          "showLegend": true
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourcegroups/clienta/providers/microsoft.operationalinsights/workspaces/clienta-law"
+        ]
+      },
+      "name": "disk-queue-chart"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "## 🌐 Network – Bytes Total/sec"
+      },
+      "name": "section-network"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "Perf\n| where Computer in (\"node-05\", \"node-06\", \"node-19\")\n| where CounterName == \"Bytes Total/sec\"\n| summarize avg(CounterValue) by Computer, bin(TimeGenerated, 5m)\n| render timechart",
+        "size": 0,
+        "title": "Network Bytes Total/sec – all nodes",
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "timechart",
+        "chartSettings": {
+          "showLegend": true,
+          "ySettings": {
+            "numberFormatSettings": {
+              "unit": 5,
+              "options": {
+                "style": "decimal",
+                "maximumFractionDigits": 1
+              }
+            }
+          }
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourcegroups/clienta/providers/microsoft.operationalinsights/workspaces/clienta-law"
+        ]
+      },
+      "name": "network-chart"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "## 📋 Summary – latest values per node"
+      },
+      "name": "section-summary"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "## 🎮 Transaction Count – per node (App Insights)"
+      },
+      "name": "section-gamerounds"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "customMetrics\n| where name == \"Transaction Count\"\n| summarize sum(value) by cloud_RoleInstance, bin(timestamp, 5m)\n| render timechart",
+        "size": 0,
+        "title": "Transaction Count – all nodes (line per node)",
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "timechart",
+        "chartSettings": {
+          "showLegend": true
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+        ]
+      },
+      "name": "gamerounds-timechart"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "customMetrics\n| where name == \"App Errors\"\n| summarize sum(value) by cloud_RoleInstance, bin(timestamp, 5m)\n| render timechart",
+        "size": 0,
+        "title": "App Errors – per node",
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "timechart",
+        "chartSettings": {
+          "showLegend": true
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+        ]
+      },
+      "name": "gameerrors-timechart"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "customMetrics\n| where name == \"App Requests\"\n| summarize sum(value) by cloud_RoleInstance, bin(timestamp, 5m)\n| render timechart",
+        "size": 0,
+        "title": "App Requests – per node",
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "timechart",
+        "chartSettings": {
+          "showLegend": true
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+        ]
+      },
+      "name": "gamerequests-timechart"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "customMetrics\n| where name in (\"Transaction Count\", \"App Errors\", \"App Requests\")\n| summarize TotalValue = sum(value) by name, cloud_RoleInstance\n| project Node = cloud_RoleInstance, Metric = name, Total = round(TotalValue, 0)\n| order by Node asc, Metric asc",
+        "size": 1,
+        "title": "Game metrics – summary table per node over selected time range",
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "visualization": "table",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Total",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "blue"
+              }
+            }
+          ],
+          "labelSettings": [
+            {
+              "columnId": "Node",
+              "label": "Node"
+            },
+            {
+              "columnId": "Metric",
+              "label": "Metric"
+            },
+            {
+              "columnId": "Total",
+              "label": "Total"
+            }
+          ]
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/ClientA/providers/microsoft.insights/components/ClientA-ain"
+        ]
+      },
+      "name": "game-summary-table"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let latestDisk = Perf\n| where Computer in (\"node-05\", \"node-06\", \"node-19\")\n| where CounterName == \"Disk Bytes/sec\"\n| summarize LastValue = avg(CounterValue) by Computer\n| project Computer, DiskBytesPerSec = round(LastValue, 0);\nlet latestQueue = Perf\n| where Computer in (\"node-05\", \"node-06\", \"node-19\")\n| where CounterName == \"Avg. Disk Queue Length\"\n| summarize LastValue = avg(CounterValue) by Computer\n| project Computer, DiskQueueLen = round(LastValue, 2);\nlet latestNet = Perf\n| where Computer in (\"node-05\", \"node-06\", \"node-19\")\n| where CounterName == \"Bytes Total/sec\"\n| summarize LastValue = avg(CounterValue) by Computer\n| project Computer, NetworkBytesPerSec = round(LastValue, 0);\nHeartbeat\n| where Computer in (\"node-05\", \"node-06\", \"node-19\")\n| summarize LastHB = max(TimeGenerated) by Computer\n| extend NodeStatus = iff(datetime_diff('minute', now(), LastHB) > 5, \"❌ DOWN\", \"✅ UP\")\n| join kind=leftouter latestDisk on Computer\n| join kind=leftouter latestQueue on Computer\n| join kind=leftouter latestNet on Computer\n| project Computer, NodeStatus, DiskBytesPerSec, DiskQueueLen, NetworkBytesPerSec\n| order by Computer asc",
+        "size": 1,
+        "title": "Summary table – average over selected time range",
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "table",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "NodeStatus",
+              "formatter": 1
+            },
+            {
+              "columnMatch": "DiskBytesPerSec",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "blue"
+              }
+            },
+            {
+              "columnMatch": "DiskQueueLen",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "yellowOrangeRed"
+              }
+            },
+            {
+              "columnMatch": "NetworkBytesPerSec",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "blue"
+              }
+            }
+          ],
+          "labelSettings": [
+            {
+              "columnId": "Computer",
+              "label": "Node"
+            },
+            {
+              "columnId": "NodeStatus",
+              "label": "Status"
+            },
+            {
+              "columnId": "DiskBytesPerSec",
+              "label": "Disk Bytes/s"
+            },
+            {
+              "columnId": "DiskQueueLen",
+              "label": "Disk Queue"
+            },
+            {
+              "columnId": "NetworkBytesPerSec",
+              "label": "Net Bytes/s"
+            }
+          ]
+        },
+        "crossComponentResources": [
+          "/subscriptions/YOUR_SUBSCRIPTION_ID/resourcegroups/clienta/providers/microsoft.operationalinsights/workspaces/clienta-law"
+        ]
+      },
+      "name": "summary-table"
+    }
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}
