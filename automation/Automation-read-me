@@ -1,0 +1,93 @@
+# Azure Workbook Automation
+
+Bash script for automated deployment of Azure Workbooks across multiple environments using ARM templates and Azure CLI.
+
+Built to eliminate manual workbook setup across 30+ client environments – reducing deployment time from hours to minutes and removing the risk of human error.
+
+---
+
+## Files
+
+| File | Description |
+|------|-------------|
+| `deploy-workbooks.sh` | Main deployment script – iterates over systems.csv and deploys workbook ARM template to each environment |
+| `systems.csv` | List of target environments with system name, resource group and Application Insights resource ID |
+| `workbook-template.json` | ARM template for the Drill-Down Logs Workbook |
+
+---
+
+## How It Works
+
+1. Script reads `systems.csv` line by line
+2. For each system it runs `az deployment group create` with the ARM template
+3. Passes `workbookDisplayName` and `workbookSourceId` as parameters
+4. Logs success/failure per system to `deploy-workbooks.log`
+5. Returns exit code 1 if any deployment fails – safe for CI/CD pipelines
+
+---
+
+## Usage
+
+```bash
+# Prerequisites: Azure CLI installed and logged in
+az login
+
+# Make script executable
+chmod +x deploy-workbooks.sh
+
+# Run deployment
+./deploy-workbooks.sh
+```
+
+---
+
+## systems.csv Format
+
+```csv
+systemName,resourceGroup,appInsightsId
+Client01,rg-client01,/subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/rg-client01/providers/microsoft.insights/components/client01-ain
+Client02,rg-client02,/subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/rg-client02/providers/microsoft.insights/components/client02-ain
+```
+
+Replace `YOUR_SUBSCRIPTION_ID` with your actual Azure subscription ID.
+
+---
+
+## Prerequisites
+
+- Azure CLI installed (`az --version`)
+- Logged in to Azure CLI (`az login`)
+- Contributor role on target resource groups
+- `workbook-template.json` and `systems.csv` in the same directory as the script
+
+---
+
+## Output Example
+
+```
+==============================================
+ Azure Workbook Deployment
+ 2026-02-20 21:00:00
+==============================================
+
+[Client01] Deploying workbook...
+  Resource Group : rg-client01
+  App Insights   : /subscriptions/.../client01-ain
+  ✓ OK
+
+[Client02] Deploying workbook...
+  Resource Group : rg-client02
+  App Insights   : /subscriptions/.../client02-ain
+  ✓ OK
+
+==============================================
+ Deployment completed: 2026-02-20 21:02:34
+ Succeeded : 34
+ Failed    : 0
+ Log       : deploy-workbooks.log
+==============================================
+```
+
+---
+
+*Domain: Azure CLI | ARM Templates | Bash Scripting | Infrastructure Automation*
