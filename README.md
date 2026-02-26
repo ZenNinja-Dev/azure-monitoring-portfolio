@@ -50,6 +50,12 @@ azure-monitoring-portfolio/
 │   ├── metrics-investigation-dashboard.json  # Outage and drop investigation dashboard
 │   └── azure-health-vs-metrics-dashboard.json  # Azure Service Health vs. internal metrics
 │
+├── automation/
+│   ├── deploy-workbooks.sh                   # Bash script – deploys workbook to 30+ environments via Azure CLI
+│   ├── systems.csv                           # Target environments list (systemName, resourceGroup, appInsightsId)
+│   ├── workbook-template.json                # ARM template used by the deployment script
+│   └── README.md
+│
 └── docs/
     ├── architecture-diagram.png              # Monitoring architecture overview
     ├── screenshot-kql-query.png              # KQL query with timechart in Log Analytics
@@ -88,6 +94,14 @@ Scheduled Query Rules deployed via ARM templates for repeatable infrastructure s
 
 ---
 
+### 🤖 Automated Multi-Environment Workbook Deployment
+
+Instead of manually deploying workbooks to 30+ client environments one by one, a single bash script handles the entire rollout via Azure CLI and ARM templates. The script reads a CSV list of target environments, deploys the workbook template to each resource group, logs success/failure per system and exits with a non-zero code on failure – making it safe for CI/CD pipelines.
+
+This reduced deployment from hours of manual work to a single command.
+
+---
+
 ### ☁️ Azure Health vs. Metrics Dashboard
 
 Correlates Azure Service Health status with internal transaction metrics on a single screen. Created to answer the key incident question immediately: *is this our problem or Microsoft's?* Eliminates the need to switch between portals during active incidents.
@@ -104,6 +118,7 @@ Correlates Azure Service Health status with internal transaction metrics on a si
 | Alerting | Scheduled Query Rules, Metric Alerts, ARM templates |
 | Service monitoring | Azure Service Health, multi-client monitoring |
 | Documentation | Operational guides, team knowledge sharing |
+| Automation | Bash scripting, Azure CLI, multi-environment ARM deployment |
 
 ---
 
