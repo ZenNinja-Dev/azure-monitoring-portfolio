@@ -37,7 +37,7 @@ let WarnMsgs = dynamic([
 let ExcludeMsgs = dynamic([
     "User session does not exist",
     "Unable to obtain user session",
-    "Getting currency rate from currency service failed."
+    "Getting exchange rate from external service failed."
 ]);
 let Results =
 union isfuzzy=true
@@ -113,7 +113,7 @@ union isfuzzy=true
     Text startswith "Request failed: ", "Request failed",
     Text startswith "Dependency failed: ", "Dependency failed",
     Text startswith "Failed to send critical files for client ", "Failed to send critical files for client",
-    Text startswith "SyncService: Failed to fetch currency rate for ", "SyncService: Failed to fetch currency rate",
+    Text startswith "SyncService: Failed to fetch rate for ", "SyncService: Failed to fetch rate",
     Text startswith "FeatureX functionality is disabled for client ", "FeatureX functionality is disabled for client",
     Text startswith "Response did not arrive on time in ", "Response did not arrive on time in",
     NormalizedText
@@ -155,7 +155,7 @@ let WarnMsgs = dynamic([
 let ExcludeMsgs = dynamic([
     "User session does not exist",
     "Unable to obtain user session",
-    "Getting currency rate from currency service failed."
+    "Getting exchange rate from external service failed."
 ]);
 let Results =
 union isfuzzy=true
@@ -231,7 +231,7 @@ union isfuzzy=true
     Text startswith "Request failed: ", "Request failed",
     Text startswith "Dependency failed: ", "Dependency failed",
     Text startswith "Failed to send critical files for client ", "Failed to send critical files for client",
-    Text startswith "SyncService: Failed to fetch currency rate for ", "SyncService: Failed to fetch currency rate",
+    Text startswith "SyncService: Failed to fetch rate for ", "SyncService: Failed to fetch rate",
     Text startswith "FeatureX functionality is disabled for client ", "FeatureX functionality is disabled for client",
     Text startswith "Response did not arrive on time in ", "Response did not arrive on time in",
     NormalizedText
